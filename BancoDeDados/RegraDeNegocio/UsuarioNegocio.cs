@@ -128,7 +128,7 @@ namespace RegraDeNegocio
         public Resposta Login(string usuario, string senha)
         {
             var objeto = DBCore.InstanciaDoBanco().usuario
-                .Where(w => w.usuario.Equals(usuario))
+                .Where(w => w.email.Equals(usuario))
                 .FirstOrDefault();
 
             if (objeto == null)
@@ -136,12 +136,12 @@ namespace RegraDeNegocio
                 return new Resposta(false, "Usuário não encontrado");
             }
 
-            if (!objeto.senha.Equals(senha.GeraSHA1()))
+            if (!objeto.senha.Equals(senha))
             {
                 return new Resposta(false, "Senha incorreta");
             }
 
-            return new Resposta(sucesso: true, objeto: objeto);
+            return new Resposta(sucesso: true, objeto: ConverteParaView(objeto));
         }
     }
 }

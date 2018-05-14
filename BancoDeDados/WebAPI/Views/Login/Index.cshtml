@@ -16,6 +16,14 @@
     <link href="~/Content/vendor.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
     <script src="~/Scripts/vendor.js"></script>
+    <script src="~/Scripts/Auditor.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btn-login").click(function () {
+                Login($("#email").val(), $("#password").val(), $("#ms-returnurl").val());
+            });
+        });
+    </script>
 </head>
 <body id="minotaur" class="appWrap">
     <div id="wrap">
@@ -27,18 +35,19 @@
                         <h2 class="brand"><strong>AUDI</strong>TOR</h2>
                     </div>
                     <form name="form">
+                        <input type="hidden" id="ms-returnurl" value="@ViewBag.ReturnUrl" />
                         <div class="form-group with-addon">
                             <span class="input-addon"><i class="icon-user"></i></span>
-                            <input type="email" placeholder="E-mail" class="form-control" required>
+                            <input type="email" placeholder="E-mail" id="email" class="form-control" required>
                         </div>
                         <div class="form-group with-addon">
                             <span class="input-addon"><i class="icon-key"></i></span>
-                            <input type="password" placeholder="Senha" class="form-control" required>
+                            <input type="password" id="password" placeholder="Senha" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <a ui-sref="core.forgotpass">Esqueceu a senha?</a>
                         </div>
-                        <button type="submit" class="btn btn-block btn-lg btn-rounded-40">Entrar</button>
+                        <button type="button" class="btn btn-block btn-lg btn-rounded-40" id="btn-login">Entrar</button>
                     </form>
                 </div>
             </div>
