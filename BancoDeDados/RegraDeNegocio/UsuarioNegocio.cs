@@ -1,10 +1,10 @@
 ﻿using BancoDeDados;
+using BancoDeDados.DB;
+using Interacao.Framework;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BancoDeDados.DB;
 
 namespace RegraDeNegocio
 {
@@ -20,7 +20,7 @@ namespace RegraDeNegocio
             {
                 var id = c.Id;
                 novo = db.usuario.Where(w => w.Id.Equals(id)).FirstOrDefault();
-                novo.usr = c.usr;
+                novo.usuario = c.usr;
                 novo.senha = c.senha;
                 novo.nome = c.nome;
                 novo.email = c.email;
@@ -29,7 +29,7 @@ namespace RegraDeNegocio
             else
             {
                 novo = db.usuario.Create();
-                novo.usr = c.usr;
+                novo.usuario = c.usr;
                 novo.senha = c.senha;
                 novo.nome = c.nome;
                 novo.email = c.email;
@@ -83,20 +83,22 @@ namespace RegraDeNegocio
             return new UsuarioView
             {
                 Id = c.Id,
-                usr = c.usr,
+                usr = c.usuario,
                 senha = c.senha,
                 nome = c.nome,
                 email = c.email,
 
                 tipoUsuario = new TipoUsuarioNegocio().ConverteParaView(c.TipoUsuario),
-                grupo = new GrupoNegocio().ConverteParaView(c.grupo)
-                
+                grupo = new GrupoNegocio().ConverteParaView(c.GrupoFK)                
             };
         }
 
         public List<UsuarioView> PegaTodas()
         {
-            var objetos = DBCore.InstanciaDoBanco().usuario.ToList();
+            var objetos = DBCore.InstanciaDoBanco().usuario
+                .Include(g => g.GrupoFK)
+                .Include(g => g.TipoUsuario)
+                .ToList();
 
             var resposta = new List<UsuarioView>();
             foreach (var c in objetos)
@@ -123,6 +125,23 @@ namespace RegraDeNegocio
             return resposta;
         }
 
-       
+        public Resposta Login(string usuario, string senha)
+        {
+            var objeto = DBCore.InstanciaDoBanco().usuario
+                .Where(w => w.usuario.Equals(usuario))
+                .FirstOrDefault();
+
+            if (objeto == null)
+            {
+                return new Resposta(false, "Usuário não encontrado");
+            }
+
+            if (!objeto.senha.Equals(senha.GeraSHA1()))
+            {
+                return new Resposta(false, "Senha incorreta");
+            }
+
+            return new Resposta(sucesso: true, objeto: objeto);
+        }
     }
 }

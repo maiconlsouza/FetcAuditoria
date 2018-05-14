@@ -85,9 +85,9 @@ namespace RegraDeNegocio
                 Id = c.id,
                 lido = c.lido,
 
-                arquivo = new ArquivoNegocio().ConverteParaView(c.arquivo),
-                usuario = new UsuarioNegocio().ConverteParaView(c.usuario),
-                grupo = new GrupoNegocio().ConverteParaView(c.grupo)
+                arquivo = new ArquivoNegocio().ConverteParaView(c.Arquivo),
+                usuario = new UsuarioNegocio().ConverteParaView(c.Usuario),
+                grupo = new GrupoNegocio().ConverteParaView(c.Grupo)
 
             };
         }

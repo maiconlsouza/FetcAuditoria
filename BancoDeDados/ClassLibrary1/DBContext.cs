@@ -1,23 +1,45 @@
 ﻿using BancoDeDados.DB;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BancoDeDados
 {
     public class BDContext : DbContext
     {
-        public BDContext() : base()
+        public BDContext() : base("Database")
         {
         }
 
+        public virtual DbSet<Usuario> usuario { get; set; }
         public virtual DbSet<Arquivo> arquivo { get; set; }
         public virtual DbSet<Grupo> grupo{ get; set; }
         public virtual DbSet<TipoUsuario> tipoUsuarios { get; set; }
-        public virtual DbSet<Usuario> usuario { get; set; }
         public virtual DbSet<UsuarioArquivo> usuarioArquivo { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Usuario>()
+                .HasKey(k => k.Id)
+                .HasMany(f => f.Arquivos)
+                .WithRequired(r => r.Usuario)
+                .HasForeignKey(f => f.id_arquivo)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Usuario>()
+                .HasRequired(f => f.GrupoFK)
+                .WithMany(r => r.Usuarios)
+                .HasForeignKey(f => f.grupo)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Usuario>()
+                .HasRequired(f => f.TipoUsuario)
+                .WithMany(r => r.Usuarios)
+                .HasForeignKey(f => f.tipo)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Grupo>()
+                .HasKey(k => k.Id);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

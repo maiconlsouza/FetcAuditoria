@@ -10,19 +10,17 @@ namespace BancoDeDados.DB
         public int id { get; set; }
         public int lido { get; set; }
 
-        [ForeignKey("Arquivo")]
+        //[ForeignKey("Arquivo")]
         public int id_arquivo { get; set; }
-        public Arquivo arquivo { get; set; }
+        public Arquivo Arquivo { get; set; }
 
-        [ForeignKey("Usuario")]
+        //[ForeignKey("Usuario")]
         public int id_usuario { get; set; }
-        public Usuario usuario { get; set; }
+        public Usuario Usuario { get; set; }
 
-        [ForeignKey("Grupo")]
+        //[ForeignKey("Grupo")]
         public int id_grupo { get; set; }
-        public Grupo grupo { get; set; }
-
-
+        public Grupo Grupo { get; set; }
     }
 
 }

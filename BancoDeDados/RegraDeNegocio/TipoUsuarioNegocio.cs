@@ -78,6 +78,8 @@ namespace RegraDeNegocio
 
         public TipoUsuarioView ConverteParaView(TipoUsuario c)
         {
+            if (c == null) return null;
+
             return new TipoUsuarioView
             {
                 Id = c.Id,

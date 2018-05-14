@@ -75,6 +75,8 @@ namespace RegraDeNegocio
 
         public GrupoView ConverteParaView(Grupo c)
         {
+            if (c == null) return null;
+
             return new GrupoView
             {
                 Id = c.Id,
