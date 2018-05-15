@@ -1,0 +1,46 @@
+﻿@model IEnumerable<BancoDeDados.UsuarioView>
+
+@{
+    ViewBag.Title = "Listagem de Usuários";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="@Url.Content("~/")">Dashboard</a></li>
+    <li class="breadcrumb-item">Cadastros</li>
+    <li class="breadcrumb-item active">Usuários</li>
+</ol>
+
+<h2>@ViewBag.Title</h2>
+
+<div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Tipo</th>
+                <th>Grupo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td><a href="/Usuarios/Edit/@item.Id">@item.nome</a></td>
+                <td>@item.email</td>
+                <td>@item.tipoUsuario.Descricao</td>
+                <td>@item.grupo.Nome</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section JS {
+    <script src="~/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="~/vendor/datatables/dataTables.bootstrap4.js"></script>
+}
+@section JSReady {
+    $("#dataTable").DataTable()
+}

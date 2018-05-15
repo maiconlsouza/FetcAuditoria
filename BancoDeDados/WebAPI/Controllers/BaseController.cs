@@ -62,6 +62,7 @@ namespace WebAPI.Controllers
 
                 IMHelper.SetaCookie(this, "UID", string.Empty);
                 IMHelper.SetaCookie(this, "SOB", string.Empty);
+                IMHelper.SetaCookie(this, "CRU", string.Empty);
             }
             catch
             {

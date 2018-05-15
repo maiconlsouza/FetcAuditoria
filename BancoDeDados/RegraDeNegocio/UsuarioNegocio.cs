@@ -16,7 +16,7 @@ namespace RegraDeNegocio
 
             Usuario novo = null;
 
-            if (!c.Id.Equals("0"))
+            if (!c.Id.Equals(0))
             {
                 var id = c.Id;
                 novo = db.usuario.Where(w => w.Id.Equals(id)).FirstOrDefault();
@@ -24,7 +24,8 @@ namespace RegraDeNegocio
                 novo.senha = c.senha;
                 novo.nome = c.nome;
                 novo.email = c.email;
-       
+                novo.grupo = c.grupo.Id;
+                novo.tipo = c.tipoUsuario.Id;
             }
             else
             {
@@ -33,6 +34,8 @@ namespace RegraDeNegocio
                 novo.senha = c.senha;
                 novo.nome = c.nome;
                 novo.email = c.email;
+                novo.grupo = c.grupo.Id;
+                novo.tipo = c.tipoUsuario.Id;
 
                 db.usuario.Add(novo);
             }

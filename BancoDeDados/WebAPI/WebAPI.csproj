@@ -214,6 +214,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\TipoUsuarioController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Controllers\UsuaruioArquivoController.cs" />
     <Compile Include="Controllers\UtilController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -386,6 +387,8 @@
     <Content Include="Views\Envio\Index.cshtml" />
     <Content Include="Views\Envio\Upar.cshtml" />
     <Content Include="Views\Arquivos\Index.cshtml" />
+    <Content Include="Views\Usuarios\Index.cshtml" />
+    <Content Include="Views\Usuarios\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

@@ -38,7 +38,7 @@ MSAlerta = function (tipo, titulo, texto, area) {
     alert(texto);
 };
 
-ComboGrupos = function () {
+ComboGrupos = function (id) {
     var combo = $("#grupo");
 
     $.ajax({
@@ -50,10 +50,72 @@ ComboGrupos = function () {
                 combo.empty();
 
                 $.map(data.Objeto, function (item) {
-                    combo.append(
-                        "<option value='" + item.Id + "'>" + item.Nome + "</option>"
-                    );
+                    if (item.Id == id) {
+                        combo.append(
+                            "<option value='" + item.Id + "' selected>" + item.Nome + "</option>"
+                        );
+                    } else {
+                        combo.append(
+                            "<option value='" + item.Id + "'>" + item.Nome + "</option>"
+                        );
+                    }
                 });
+            }
+        }
+    });
+};
+
+ComboTipo = function (id) {
+    var combo = $("#tipo");
+
+    $.ajax({
+        type: 'post',
+        url: '/api/tipousuario/obtem',
+        data: $("#form").serialize(),
+        success: function (data) {
+            if (data.Sucesso == true) {
+                combo.empty();
+
+                $.map(data.Objeto, function (item) {
+                    if (item.Id == id) {
+                        combo.append(
+                            "<option value='" + item.Id + "' selected>" + item.Descricao + "</option>"
+                        );
+                    } else {
+                        combo.append(
+                            "<option value='" + item.Id + "'>" + item.Descricao + "</option>"
+                        );
+                    }
+                });
+            }
+        }
+    });
+};
+
+SalvarUsuario = function () {
+    $.ajax({
+        type: 'post',
+        url: '/Usuarios/DoSave',
+        data: {
+            Id: $("#Id").val(),
+            nome: $("#nome").val(),
+            email: $("#email").val(),
+            senha: $("#senha").val(),
+            usr: $("#usr").val(),
+            grupo: $("#grupo").val(),
+            tipo: $("#tipo").val()
+        },
+        beforeSend: function () {
+            MSConfirmaForm($("#Salvar"), false);
+        },
+        complete: function () {
+            MSConfirmaForm($("#Salvar"), true);
+        },
+        success: function (data) {
+            if (data.situacao === false) {
+                MSAlerta("warning", "Atenção!", data.mensagem, $("#ms-alerta"));
+            } else {
+                window.location = "/Usuarios";
             }
         }
     });

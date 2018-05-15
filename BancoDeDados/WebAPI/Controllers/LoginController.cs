@@ -32,6 +32,7 @@ namespace WebAPI.Controllers
             {
                 IMHelper.SetaCookie(this, "UID", ((UsuarioView)resultado.Objeto).Id.ToString());
                 IMHelper.SetaCookie(this, "SOB", (((UsuarioView)resultado.Objeto).tipoUsuario.sobe_arquivo) == "S" ? "99" : "25");
+                IMHelper.SetaCookie(this, "CRU", (((UsuarioView)resultado.Objeto).tipoUsuario.cria_usuario) == "S" ? "99" : "25");
 
                 Autentica(usuario, true);
             }
