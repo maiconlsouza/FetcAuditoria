@@ -54,5 +54,14 @@ namespace WebAPI.Controllers
 
             return Ok((new ArquivoNegocio().Excluir(arquivo)));
         }
+
+        [HttpPost]
+        [ActionName("meudashboard")]
+        public async Task<IHttpActionResult> MeuDashboard([FromBody] JObject jsonData)
+        {
+            ArquivoView arquivo = jsonData.SelectToken("Arquivo").ToObject<ArquivoView>();
+
+            return Ok((new ArquivoNegocio().Excluir(arquivo)));
+        }
     }
 }

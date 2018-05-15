@@ -206,6 +206,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\ArquivoController.cs" />
+    <Compile Include="Controllers\ArquivosController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\EnvioController.cs" />
     <Compile Include="Controllers\GrupoController.cs" />
@@ -231,6 +232,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\bg.jpg" />
+    <Content Include="Content\Images\loading.gif" />
     <Content Include="Content\Images\logo-alt.png" />
     <Content Include="Content\jquery-ui.min.css" />
     <Content Include="Content\minotaur.css" />
@@ -383,6 +385,7 @@
     <Content Include="vendor\jquery\jquery.slim.min.map" />
     <Content Include="Views\Envio\Index.cshtml" />
     <Content Include="Views\Envio\Upar.cshtml" />
+    <Content Include="Views\Arquivos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

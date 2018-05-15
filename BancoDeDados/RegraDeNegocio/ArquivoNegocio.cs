@@ -94,7 +94,10 @@ namespace RegraDeNegocio
 
         public List<ArquivoView> PegaTodas()
         {
-            var contas = DBCore.InstanciaDoBanco().arquivo.ToList();
+            var contas = DBCore.InstanciaDoBanco().arquivo
+                .Include(i => i.Usuarios)
+                .Include("Usuarios.GrupoFK")
+                .ToList();
 
             var resposta = new List<ArquivoView>();
             foreach (var c in contas)
@@ -166,6 +169,59 @@ namespace RegraDeNegocio
             {
                 obj.ArquivoLocal = arquivo;
                 Salvar(obj);
+            }
+        }
+
+        public Tuple<int, int> MeuDasboard(int usuario)
+        {
+            var db = DBCore.InstanciaDoBanco();
+
+            var resumo = db.usuarioArquivo.Where(w =>
+                w.id_usuario.Equals(usuario)
+            )
+            .GroupBy(g => g.id_usuario)
+            .Select(s => new
+            {
+                Lidos = s.Sum(f => f.lido.Equals(1) ? 1 : 0),
+                NaoLidos = s.Sum(f => !f.lido.Equals(1) ? 1 : 0)
+            }).FirstOrDefault();
+
+            return new Tuple<int, int>(resumo.Lidos, resumo.NaoLidos);
+        }
+
+        public List<ArquivoView> PegaMeusArquivosStatus(int usuario, int status)
+        {
+            var contas = DBCore.InstanciaDoBanco().usuarioArquivo
+                .Where(w => 
+                    w.id_usuario.Equals(usuario)
+                    && (w.lido.Equals(status) || status.Equals(9))
+                )
+                .Select(s => s.Arquivo)
+                .Include(i => i.Usuarios)
+                .Include("Usuarios.GrupoFK")
+                .OrderBy(o => o.Id)
+                .ToList();                
+
+            var resposta = new List<ArquivoView>();
+            foreach (var c in contas)
+            {
+                resposta.Add(ConverteParaView(c));
+            }
+
+            return resposta;
+        }
+
+        public void MarcaArquivoLido(int id, int usuario)
+        {
+            using (var db = DBCore.NovaInstanciaDoBanco())
+            {
+                var objeto = db.usuarioArquivo.Where(w =>
+                    w.id_arquivo.Equals(id) && w.id_usuario.Equals(usuario)
+                ).FirstOrDefault();
+
+                objeto.lido = 1;
+
+                db.SaveChanges();
             }
         }
     }

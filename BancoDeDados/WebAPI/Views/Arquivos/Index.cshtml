@@ -1,0 +1,56 @@
+﻿@model IEnumerable<BancoDeDados.ArquivoView>
+
+@{
+    ViewBag.Title = "Listagem de Arquivos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="@Url.Content("~/")">Dashboard</a></li>
+    <li class="breadcrumb-item active">Listagem de Arquivos</li>
+</ol>
+
+<h2>@ViewBag.Title</h2>
+
+<div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Descrição</th>
+                <th>Arquivo</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Código</th>
+                <th>Descrição</th>
+                <th>Arquivo</th>
+            </tr>
+        </tfoot>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Descricao</td>
+                    @if (!string.IsNullOrEmpty(item.ArquivoLocal))
+                    {
+                    <td><a href="@string.Format("/Upload/UP_{0}.{1}", item.Id, item.ArquivoLocal.Substring(item.ArquivoLocal.LastIndexOf('.') + 1))" target="_blank" onclick="MarcarLido(@item.Id)">@item.ArquivoLocal</a></td>
+                    } else
+                    {
+                        <td>&nbsp;</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section JS {
+    <script src="~/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="~/vendor/datatables/dataTables.bootstrap4.js"></script>
+}
+@section JSReady {
+    $("#dataTable").DataTable()
+}

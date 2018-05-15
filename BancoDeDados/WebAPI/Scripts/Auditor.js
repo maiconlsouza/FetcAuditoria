@@ -98,3 +98,26 @@ function EnviaArquivo(obj) {
         $('.progress .progress-bar').css('width', progress + '%');
     });
 }
+
+CarregaMeuDash = function () {
+    $.ajax({
+        type: 'post',
+        url: '/Home/MeuDashboard',
+        success: function (data) {
+            $("#nao_lidos").html("<h3>" + data.NaoLidos + " não visualizados</h3>");
+            $("#lidos").html("<h3>" + data.Lidos + " visualizados</h3>");
+            $("#meus_arquivos").html("<h3>" + (data.NaoLidos + data.Lidos) + " disponíveis</h3>");
+        }
+    });
+};
+
+MarcarLido = function (id) {
+    $.ajax({
+        type: 'post',
+        url: '/Arquivos/MarcarComoLido',
+        data: {id: id},
+        success: function (data) {
+            location.reload();
+        }
+    });
+};
