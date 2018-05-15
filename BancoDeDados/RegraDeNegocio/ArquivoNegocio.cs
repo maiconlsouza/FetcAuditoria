@@ -2,6 +2,7 @@
 using BancoDeDados.DB;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace RegraDeNegocio
@@ -19,11 +20,13 @@ namespace RegraDeNegocio
                 var id = c.Id;
                 novo = db.arquivo.Where(w => w.Id.Equals(id)).FirstOrDefault();
                 novo.Descricao = c.Descricao;
+                novo.ArquivoLocal = c.ArquivoLocal;
             }
             else
             {
                 novo = db.arquivo.Create();
                 novo.Descricao = c.Descricao;
+                novo.ArquivoLocal = c.ArquivoLocal;
 
                 db.arquivo.Add(novo);
             }
@@ -71,11 +74,22 @@ namespace RegraDeNegocio
 
         public ArquivoView ConverteParaView(Arquivo c)
         {
-            return new ArquivoView
+            var resposta = new ArquivoView
             {
                 Id = c.Id,
-                Descricao = c.Descricao
+                Descricao = c.Descricao,
+                ArquivoLocal = c.ArquivoLocal
             };
+
+            if (c.Usuarios != null && c.Usuarios.Count > 0)
+            {
+                resposta.Grupo = new GrupoView
+                {
+                    Nome = c.Usuarios.FirstOrDefault().GrupoFK.Nome
+                };
+            }
+
+            return resposta;
         }
 
         public List<ArquivoView> PegaTodas()
@@ -95,6 +109,8 @@ namespace RegraDeNegocio
         {
             var conta = DBCore.InstanciaDoBanco().arquivo
                 .Where(w => w.Id.Equals(id))
+                .Include(i => i.Usuarios)
+                .Include("Usuarios.GrupoFK")
                 .FirstOrDefault();
 
             ArquivoView resposta = null;
@@ -105,6 +121,52 @@ namespace RegraDeNegocio
             }
 
             return resposta;
+        }
+
+        public Resposta Salvar(string descricao, int grupo)
+        {
+            using (var db = DBCore.NovaInstanciaDoBanco())
+            {
+                var arquivo = new Arquivo
+                {
+                    Descricao = descricao,
+                    Usuarios = new List<UsuarioArquivo>()
+                };
+
+                var usuarios = db.grupo.Where(w => w.Id.Equals(grupo))
+                    .FirstOrDefault()
+                    .Usuarios.ToList();
+
+                db.arquivo.Add(arquivo);
+                db.SaveChanges();
+                
+                foreach (var usuario in usuarios)
+                {
+                    var permissao = new UsuarioArquivo
+                    {
+                        id_arquivo = arquivo.Id,
+                        id_grupo = grupo,
+                        id_usuario = usuario.Id,
+                        lido = 0
+                    };
+                    
+                    db.usuarioArquivo.Add(permissao);
+                }
+
+                db.SaveChanges();
+
+                return new Resposta(true, objeto: ConverteParaView(arquivo));
+            }
+        }
+
+        public void AtualizaArquivo(int id, string arquivo)
+        {
+            var obj = PegaPorCodigo(id);
+            if (obj != null)
+            {
+                obj.ArquivoLocal = arquivo;
+                Salvar(obj);
+            }
         }
     }
 }

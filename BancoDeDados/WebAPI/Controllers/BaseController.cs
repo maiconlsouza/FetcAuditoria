@@ -61,6 +61,7 @@ namespace WebAPI.Controllers
                 FormsAuthentication.SignOut();
 
                 IMHelper.SetaCookie(this, "UID", string.Empty);
+                IMHelper.SetaCookie(this, "SOB", string.Empty);
             }
             catch
             {

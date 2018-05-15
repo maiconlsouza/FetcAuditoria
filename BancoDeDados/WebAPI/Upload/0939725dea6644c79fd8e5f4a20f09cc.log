@@ -1,0 +1,35 @@
+2018-04-30 09:36:19 ERROR  : ERROR:  syntax error at or near "("
+LINE 8:  CONSTRAINT pk_tipoimovel(tipoimovelid),
+                                 ^
+2018-05-02 16:09:57 ERROR  : Error connecting to the server: FATAL:  password authentication failed for user "postgres"
+
+2018-05-02 16:42:04 ERROR  : ERROR:  relation "bairro" already exists
+2018-05-02 16:49:19 ERROR  : ERROR:  table "imovel" does not exist
+2018-05-02 16:49:19 ERROR  : ERROR:  table "imovel" does not exist
+2018-05-02 16:49:19 ERROR  : ERROR:  table "imovel" does not exist
+2018-05-02 16:51:32 ERROR  : ERROR:  null value in column "imovelid" violates not-null constraint
+DETAIL:  Failing row contains (null, 1234987, Terreno Esquina, Terreno de esquina. Ótima localização., 300000.00, 0.00, 0.00, 1, 450.00, 0.00, 0, 0, 0, 2018-05-02 00:00:00, 1).
+2018-05-02 16:51:37 ERROR  : ERROR:  null value in column "imovelid" violates not-null constraint
+DETAIL:  Failing row contains (null, 1234987, Terreno Esquina, Terreno de esquina. Ótima localização., 300000.00, 0.00, 0.00, 1, 450.00, 0.00, 0, 0, 0, 2018-05-02 00:00:00, 1).
+2018-05-02 16:54:17 ERROR  : ERROR:  table "imovel" does not exist
+2018-05-04 15:29:05 ERROR  : Error connecting to the server: FATAL:  password authentication failed for user "postgres"
+
+2018-05-04 15:29:59 ERROR  : ERROR:  syntax error at or near "vayring"
+LINE 1: ...biliaria.licenciada add column telefone character vayring(20...
+                                                             ^
+2018-05-09 15:50:51 ERROR  : Error connecting to the server: FATAL:  password authentication failed for user "postgres"
+
+2018-05-09 15:50:55 ERROR  : Error connecting to the server: FATAL:  password authentication failed for user "postgres"
+
+2018-05-09 15:51:25 ERROR  : Error connecting to the server: FATAL:  password authentication failed for user "dilly11"
+FATAL:  password authentication failed for user "dilly11"
+
+2018-05-10 21:53:49 ERROR  : ERROR:  schema "carona" already exists
+2018-05-10 21:54:30 ERROR  : ERROR:  syntax error at or near "("
+LINE 15:  constraint pk_polo (polo_id),
+                             ^
+2018-05-10 21:54:44 ERROR  : ERROR:  column "intituicao_id" referenced in foreign key constraint does not exist
+2018-05-10 21:56:25 ERROR  : ERROR:  syntax error at or near "COMMENT"
+LINE 6: COMMENT ON TABLE public.situacao IS '1 - Ativo
+        ^
+2018-05-10 22:00:31 ERROR  : ERROR:  table "usuario" does not exist

@@ -31,6 +31,7 @@ namespace WebAPI.Controllers
             if (resultado.Sucesso)
             {
                 IMHelper.SetaCookie(this, "UID", ((UsuarioView)resultado.Objeto).Id.ToString());
+                IMHelper.SetaCookie(this, "SOB", (((UsuarioView)resultado.Objeto).tipoUsuario.sobe_arquivo) == "S" ? "99" : "25");
 
                 Autentica(usuario, true);
             }

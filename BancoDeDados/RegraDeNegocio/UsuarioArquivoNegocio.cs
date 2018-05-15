@@ -87,7 +87,7 @@ namespace RegraDeNegocio
 
                 arquivo = new ArquivoNegocio().ConverteParaView(c.Arquivo),
                 usuario = new UsuarioNegocio().ConverteParaView(c.Usuario),
-                grupo = new GrupoNegocio().ConverteParaView(c.Grupo)
+                grupo = new GrupoNegocio().ConverteParaView(c.GrupoFK)
 
             };
         }

@@ -207,12 +207,14 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\ArquivoController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\EnvioController.cs" />
     <Compile Include="Controllers\GrupoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\TipoUsuarioController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\UsuaruioArquivoController.cs" />
+    <Compile Include="Controllers\UtilController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -230,6 +232,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\bg.jpg" />
     <Content Include="Content\Images\logo-alt.png" />
+    <Content Include="Content\jquery-ui.min.css" />
     <Content Include="Content\minotaur.css" />
     <Content Include="Content\sb-admin.css" />
     <Content Include="Content\sb-admin.min.css" />
@@ -281,6 +284,8 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery.fileupload.js" />
+    <Content Include="Scripts\jquery.ui.widget.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -376,10 +381,12 @@
     <Content Include="vendor\font-awesome\scss\_variables.scss" />
     <Content Include="vendor\jquery\jquery.min.map" />
     <Content Include="vendor\jquery\jquery.slim.min.map" />
+    <Content Include="Views\Envio\Index.cshtml" />
+    <Content Include="Views\Envio\Upar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Views\Base\" />
+    <Folder Include="Upload\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

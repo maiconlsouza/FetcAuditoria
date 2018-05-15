@@ -13,6 +13,7 @@ namespace BancoDeDados.DB
         public int Ativo { get; set; }
 
         public virtual ICollection<Usuario> Usuarios { get; set; }
+        public virtual ICollection<UsuarioArquivo> Arquivos { get; set; }
     }
 }
 

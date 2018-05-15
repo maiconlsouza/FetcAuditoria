@@ -36,8 +36,17 @@ namespace BancoDeDados
                 .HasForeignKey(f => f.tipo)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Grupo>()
-                .HasKey(k => k.Id);
+            modelBuilder.Entity<UsuarioArquivo>()
+                .HasRequired(f => f.Arquivo)
+                .WithMany(r => r.Usuarios)
+                .HasForeignKey(f => f.id_arquivo)
+                .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<UsuarioArquivo>()
+                .HasRequired(f => f.GrupoFK)
+                .WithMany(r => r.Arquivos)
+                .HasForeignKey(f => f.id_grupo)
+                .WillCascadeOnDelete(false);
 
             base.OnModelCreating(modelBuilder);
         }

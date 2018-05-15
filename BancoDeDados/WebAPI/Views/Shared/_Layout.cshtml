@@ -8,9 +8,10 @@
     <meta name="author" content="">
     <title>Auditor - @ViewBag.Title</title>
     <!-- CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="~/Content/sb-admin.min.css" rel="stylesheet">
+    @RenderSection("CSS", false)
 </head>
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
     @{  Html.RenderPartial("_Header"); }
@@ -51,10 +52,17 @@
         </div>
 
         <!-- SCRIPTS -->
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+        <script src="~/vendor/jquery/jquery.min.js"></script>
+        <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
         <script src="@Url.Content("~/Scripts/sb-admin.min.js")"></script>
+        <script src="@Url.Content("~/Scripts/Auditor.js")"></script>
+        @RenderSection("JS", false)
+        <script type="text/javascript">
+            $(document).ready(function () {
+                @RenderSection("JSReady", false)
+            });
+        </script>
     </div>
 </body>
 </html>

@@ -129,6 +129,7 @@ namespace RegraDeNegocio
         {
             var objeto = DBCore.InstanciaDoBanco().usuario
                 .Where(w => w.email.Equals(usuario))
+                .Include(i => i.TipoUsuario)
                 .FirstOrDefault();
 
             if (objeto == null)
