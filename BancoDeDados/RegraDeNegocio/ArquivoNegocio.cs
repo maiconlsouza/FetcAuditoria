@@ -224,5 +224,38 @@ namespace RegraDeNegocio
                 db.SaveChanges();
             }
         }
+
+        public List<RelatorioAuditoriaView> RelatorioAuditoria()
+        {
+            var db = DBCore.InstanciaDoBanco();
+
+            var resumo = db.usuarioArquivo.Include(s => s.Usuario)
+            .GroupBy(g => g.id_usuario)
+            .Select(s => new
+            {
+                s.Key,
+                Lidos = s.Sum(f => f.lido.Equals(1) ? 1 : 0),
+                NaoLidos = s.Sum(f => !f.lido.Equals(1) ? 1 : 0)
+            }).ToList();
+
+            var resposta = new List<RelatorioAuditoriaView>();
+
+            foreach(var c in resumo)
+            {
+                var v = new RelatorioAuditoriaView
+                {
+                    Usuario = new UsuarioView
+                    {
+                        nome = new UsuarioNegocio().PegaPorCodigo(c.Key).nome
+                    },
+                    Lidos = c.Lidos,
+                    NaoLidos = c.NaoLidos
+                };
+
+                resposta.Add(v);
+            }
+
+            return resposta;
+        }
     }
 }

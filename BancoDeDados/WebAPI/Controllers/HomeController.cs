@@ -17,7 +17,13 @@ namespace WebAPI.Controllers
         {
             ViewBag.Title = "DashBoard";
 
-            return View();
+            var lista = new List<RelatorioAuditoriaView>();
+            if (IMHelper.GetCookie(this, "SOB").Equals("99"))
+            {
+                lista = new ArquivoNegocio().RelatorioAuditoria();
+            }
+
+            return View(lista);
         }
 
         [HttpPost]
